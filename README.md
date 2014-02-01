@@ -9,4 +9,6 @@ The script that does the estimating and forecasting is "cpg.statrisk.2014.estima
 
 https://drive.google.com/file/d/0B5wyt4eDq98GYm1hUUxuR09pejQ/edit?usp=sharing
 
+A data dictionary for that file cab be found here as varlist.txt.
+
 I did this work under contract to the U.S. Holocaust Memorial Museum's Center for the Prevention of Genocide. All errors are my own.
