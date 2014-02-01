@@ -1,0 +1,202 @@
+VARIABLE LIST FOR 2014 MASS KILLING RISK ASSESSMENT REPLICATION FILE
+Jay Ulfelder
+2014-02-01
+
+Data in .csv format at https://drive.google.com/file/d/0B5wyt4eDq98GYm1hUUxuR09pejQ/edit?usp=sharing
+
+Variable types:
+
+  bin = binary
+  cat = categorical
+  [no notation] = other
+
+Data sources:
+
+  WDI: World Bank World Development Indicators (wdi.R)
+  CSP: Center for Systemic Peace (coups.R)
+  MEPV: Major Episodes of Political Violence [CSP] (mepv.R)
+  ELC: Elite Characteristics [CSP] (elc.R)
+  DIS: Discrimination [CSP] (dis.R)
+  Census: U.S. Census Bureau (imrate.R)
+  P&T: Powell & Thyne (coups.R)
+  IMF: International Monetary Fund (econstats.R)
+  IO: Ulfelder international organizations data (ios.R)
+
+
+country         Country name
+year            Year
+sftgcode        PITF country code
+wdi.gdppcgrow   Annual percent change in GDP per capita (WDI)
+yrborn          Year of state independence
+yrdied          Year of state termination
+ccode           COW numeric code
+reg.eap         Region: East Asia & Pacific
+reg.afr         Region: sub-Saharan Africa
+reg.eur         Region: Europe
+reg.mna         Region: Middle East & North Africa
+reg.sca         Region: South & Central Asia
+reg.amr         Region: Americas & Caribbean
+dosreg          Region per Dept of State (categorical, matches reg.*)
+age             Country age (year - yrborn)
+ageln           age + 1, logged
+postcw          Post-Cold War period, 1991- (bin)
+iso3code        ISO 3 code
+start           Any onsets of state-led mass killing episodes (bin)
+end             Any terminations of state-led mass killing episodes (bin)
+ongoing         Any ongoing episodes of state-led mass killing (bin)
+type            Type of mass-killing episode (cat)
+ever            Any state-led mass killing episodes since independence (bin)
+wdi.popsize     Population size, 1000s (WDI)
+wdi.urban       Urban population (% of total) (WDI)
+wdi.imrate      Infant mortality rate (WDI)
+wdi.gdppcppp    GDP per capita, PPP (WDI)
+wdi.gdppc       GDP per capita (WDI)
+wdi.trade       Trade (% of GDP) (WDI)
+wdi.miltot      Armed forces personnel, total (WDI)
+wdi.milpct      Armed forces personnel, % of labor force (WDI)
+wdi.energy      Adjusted savings: forest depletion (% of GNI)
+wdi.minerals    Adjusted savings: mineral depletion (% of GNI)
+wdi.forest      Adjusted savings: energy depletion (% of GNI)
+natrsc          wdi.energy + wdi.minerals
+natrscsr        natrsc, square root
+csp.succ        Successful coup attempts, count (CSP)
+csp.fail        Failed coup attempts, count (CSP)
+csp.plot        Failed coup plots, count (CSP)
+csp.rumr        Rumored coup plots, count (CSP)
+pt.succ         Successful coup attempts, count (P&T)
+pt.fail         Failed coup attempts, count (P&T)
+cou.s.d         Any successful coup attempts (bin) (CSP or P&T)
+cou.f.d         Any failed coup attempts (bin) (CSP or P&T)
+cou.a.d         Any coup attempts, successful or failed (bin) (CSP or P&T)
+cou.tries5d     Any successful or failed coup attempts in past 5 years (bin) (CSP or P&T)
+polity          Combined Polity score (Polity)
+durable         Regime durability (Polity)
+exrec           Executive recruitment concept (Polity)          
+parcomp         Competitiveness of participation (Polity)
+xconst          Executive constraints concept (Polity)
+polcat          Political regime type (cat) [polity < -5 = 1, polity -5 to +5 = 2, polity > +5 = 3, other = 7]
+pitfcat         Political regime type per PITF "Global Model for Forecasting Instability" (cat)
+autocracy       Autocracy per Harff "No Lessons Learned" (bin)
+xconccnc        Strong executive constraints per Colaresi & Carey "To Kill or To Protect" (bin)
+polcat1         polcat = 1 (bin)
+polcat2         polcat = 2 (bin)
+polcat3         polcat = 3 (bin)
+polcat7         polcat = 7 (bin)
+pitfcat1        pitfcat = "A/F" (bin)
+pitfcat2        pitfcat = "A/P" (bin)
+pitfcat3        pitfcat = "D/fact" (bin)
+pitfcat4        pitfcat = "D/P" (bin)
+pitfcat5        pitfcat = "D/F" (bin)
+pitfcat6	pitfcat = "other" (bin)
+durableln	durable + 1, logged
+pitf.reg.magfail	PITF adverse regime change, magnitude of failure (CSP)
+pitf.reg.magcol	PITF adverse regime change, magnitude of state collapse (CSP)
+pitf.reg.magviol	PITF adverse regime change, magnitude of violence (CSP)
+pitf.reg.magave	PITF adverse regime change, average magnitude (CSP)
+pitf.reg.ongoing	PITF adverse regime change ongoing (bin) 
+pitf.reg.onset	PITF adverse regime change onset (bin) 
+pitf.reg.end	PITF adverse regime change termination (bin) 
+pitf.reg.dur	PITF adverse regime change duration (CSP)
+pitf.rev.magfight	PITF revolutionary war, magnitude of fighting (CSP)
+pitf.rev.magfatal	PITF revolutionary war, magnitude of deaths (CSP)
+pitf.rev.magarea	PITF revolutionary war, magnitude of area involved (CSP)
+pitf.rev.magave	PITF revolutionary war, average magnitude (CSP)
+pitf.rev.ongoing	PITF revolutionary war ongoing (bin) 
+pitf.rev.onset	PITF revolutionary war onset (bin) 
+pitf.rev.end	PITF revolutionary war termination (bin) 
+pitf.rev.dur	PITF revolutionary war duration (CSP)
+pitf.eth.magfight	PITF etholutionary war, magnitude of fighting (CSP)
+pitf.eth.magfatal	PITF ethnic war, magnitude of deaths (CSP)
+pitf.eth.magarea	PITF ethnic war, magnitude of area involved (CSP)
+pitf.eth.magave	PITF ethnic war, average magnitude (CSP)
+pitf.eth.ongoing	PITF ethnic war ongoing (bin) 
+pitf.eth.onset	PITF ethnic war onset (bin) 
+pitf.eth.end	PITF ethnic war termination (bin)
+pitf.eth.dur	PITF ethnic war duration
+pitf.gen.deathmag	PITF genocide/politicide, magnitude of deaths (CSP)
+pitf.gen.ongoing	PITF genocide/politicide ongoing (bin) 
+pitf.gen.onset	PITF genocide/politicide onset (bin) 
+pitf.gen.end	PITF genocide/politicide termination (bin)
+pitf.gen.dur	PITF genocide/politicide duration
+pitf.any.ongoing	PITF any instability ongoing (bin) 
+pitf.any.onset	PITF any instability onset (bin) 
+pitf.dur.min	PITF any instability duration (shortest if overlapping)
+pitf.dur.max    PITF any instability duration (longest if overlapping)
+pitf.reg.max	Maximum magnitude of PITF adverse regime change
+pitf.rev.max	Maximum magnitude of PITF revolutionary war
+pitf.eth.max	Maximum magnitude of PITF ethnic war
+pitf.mag.max	Maximum magnitude of PITF instability
+pitf.mag.max2	Maximum magnitude of PITF non-genocide instability
+sftpuhvl.15	Sum of maximum magnitudes of PITF instability over past 15 years
+sftpuhvl2.15	Sum of maximum magnitudes of PITF non-genocide instability over past 15 years
+sftpuhvl.10	Sum of maximum magnitudes of PITF instability over past 10 years
+sftpuhvl2.10	Sum of maximum magnitudes of PITF non-genocide instability over past 10 years
+sftpuhvl.5	Sum of maximum magnitudes of PITF instability over past 5 years
+sftpuhvl2.5	Sum of maximum magnitudes of PITF non-genocide instability over past 5 years
+pitf.cwar.onset	Onset of PITF revolutionary or ethnic war (bin)
+pitf.reg.durln	pitf.reg.dur + 1, logged
+pitf.rev.durln	pitf.rev.dur + 1, logged
+pitf.eth.durln	pitf.eth.dur + 1, logged
+pitf.dur.minln	pitf.dur.min + 1, logged
+sftpuhvl2.10ln	sftpuhvl2.10 + 1, logged
+ind	Independent state indicator (bin) (MEPV)
+intind	Magnitude of episode of warfare in non-independent state &/or assoc w/attempt to gain indep (MEPV)
+intviol	Magnitude of international violence (MEPV)
+inntwar	Magnitude of international war (MEPV)
+civviol	Magnitude of civil violence (MEPV)
+civwar	Magnitude of civil war (MEPV)
+ethviol	Magnitude of ethnic violence (MEPV)
+ethwar	Magnitude of ethnic war (MEPV)
+inttot	intviol + intwar
+civtot	civviol + civwar + ethviol + ethwar
+actotal	inttot + civtot
+nborder	Number of bordering states (MEPV)
+region	Code designation for affective geopolitical region (cat) (MEPV)
+nregion	Number of states in designated region (MEPV)
+regac	Sum of actotal scores for states in designated region
+regacln	regac + 1, logged
+civconc	Any civil violence as indicated by civtot > 0 (bin)
+civconln	civtot + 1, logged
+io.iccpr1	Signatory to the 1st Optional Protocol of the ICCPR (IO)
+io.wto	Member of GATT/WTO (IO)
+cnsimr	Infant mortality rate, estimated (Census)
+xxxcimr	Infant mortality rate relative to annual global median (PITF)
+xxxcimrln	xxxcimr, logged
+elceleth	Political salience of elite ethnicity (cat) [not salient = 0, majority = 1, minority = 2] (ELC)
+elceliti	Exclusionary elite ideology (bin) (ELC)
+elcelethc	Political salience of elite ethnicty (bin) [not salient = 0, salient = 1]
+elceleth2	Political salience of elite ethnicity, minority rule (bin)
+elceleth1	Political salience of elite ethnicity, majority rule (bin)
+dispota4	Proportion of population subjected to state-led discrimination (DIS)
+dispota4ln	(100 * dispota4) + 1, logged
+ef	Ethnic fractionalization index
+elf	Ethno-linguistic fractionalization index
+efcat	Ethnic fractionalization (cat) [lowest tercile = 1, middle tercile = 2, top tercile = 3]
+efcat1	efcat = 1 (bin)
+efcat2	efcat = 2 (bin)
+efcat3	efcat = 3 (bin)
+efcat9	efcat = NA (bin)
+imf.gdppc	GDP per capita (IMF)
+mix.gdppcgrow	Annual percent change in GDP per capita combining wdi.gdpgrow & imf.gdppc series
+mix.gdppcgrowsr	mix.gdppcgrow, square root of absolute value, times -1 for original values < 0
+slowgrowth	Annual GDP growth < 2% (bin)
+imf.inflrate	Consumer price inflation rate (IMF)
+start.1	start, 1-year lead
+cou.a.d.1	cou.a.d, 1-year lead
+pitf.cwar.onset.1	pitf.cwar.onset, 1-year lead
+pitf.any.onset.1	pitf.any.onset, 1-year lead
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
