@@ -565,6 +565,28 @@ do.call(addMapLegend, c(map.score, legendWidth=0.5, legendMar = 2))
 mtext("map made using rworldmap             ", line=-4, side=1, adj=1, cex=0.8)
 dev.off()
 
+# Map with color scaled to distance
+date <- as.Date(Sys.Date())
+datestring <- paste(substr(date,1,4), substr(date,6,7), substr(date,9,10), sep="")
+mapname <- paste("c:/users/jay/documents/ushmm/statrisk2014/figs/scaledmap", datestring, "png", sep = ".")
+cats <- c(0,0.01,0.02,0.04,0.08,0.16)
+cols <- c("lightgoldenrod", "yellow", "orange", "orangered", "orangered4")
+png(mapname, width=800, height=450, bg="white")
+par(mai=c(0,0,0.2,0), xaxs="i", yaxs="i")
+map.score <- mapCountryData(map2014,
+  nameColumnToPlot="mean.p",
+  addLegend = FALSE,
+  catMethod = cats,
+  colourPalette = cols,
+  borderCol = "white",
+  oceanCol = "lightblue",
+  mapTitle = "")
+legend(x = -170, y = -85, xjust = 0, yjust = 0,
+  legend = c("< 1%", "1-2%", "2-4%", "4-8%", "8-16%"),
+  fill = cols, border = cols, bty = "n")
+text(x = 170, y = -80, "made using rworldmap", adj = 1, cex = 0.8)
+dev.off()
+
 # Dot plot of scores
 require(Hmisc)
 newcast <- newcast[order(-newcast$mean.p),]
