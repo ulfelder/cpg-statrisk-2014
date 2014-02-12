@@ -254,15 +254,18 @@ subdat <- subset(df, year < as.numeric(substr(as.Date(Sys.Date()),1,4)) - 2)
 
 coup <- glm(f.coup, family = binomial, data = subdat, na.action = na.exclude)
 df$coup.p <- predict(coup, newdata = df, type = "response")
+subdat$coup.p <- predict(coup, newdata = subdat, type = "response")
 
 cwar <- glm(f.cwar, family = binomial, data = subdat, na.action = na.exclude)
 df$cwar.p <- predict(cwar, newdata = df, type = "response")
+subdat$cwar.p <- predict(cwar, newdata = subdat, type = "response")
 
 threat <- glm(f.threat, family = binomial, data = subdat, na.action = na.exclude)
 df$threat.p <- predict(threat, newdata = df, type = "response")
 
 pitf <- glm(f.pitf, family = binomial, data = subset(subdat, pitf.any.ongoing==0), na.action = na.exclude)
 df$pitf.p <- predict(pitf, newdata = df, type = "response")
+subdat$pitf.p <- predict(pitf, newdata = subdat, type = "response")
 
 harff <- glm(f.harff, family = binomial, data = subdat, na.action = na.exclude)
 df$harff.p <- predict(harff, newdata = df, type = "response")
