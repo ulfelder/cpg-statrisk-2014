@@ -1,16 +1,19 @@
 # PITF PROBLEM SET WITH ONSET INDICATORS AND DURATION CLOCKS
 # Jay Ulfelder
-# 2014-01-20
+# 2014-04-23
 
 # Source: Center for Systemic Peace
 # http://www.systemicpeace.org/inscr/inscr.htm
+
+# NOTE: This script assumes that the working directory includes a folder called 'indata', into which the requisite
+# Excel files have been downloaded, and one called 'r', in which the script sourced in line 127 can be found.
 
 rm(list=ls(all=TRUE))
 
 require(XLConnect)
 require(reshape)
 
-reg <- readWorksheetFromFile("c:/users/jay/documents/chenoweth project/indata/pitf adverse regime changes 2012.xls",
+reg <- readWorksheetFromFile("indata/pitf adverse regime changes 2013.xls",
   sheet=1, startCol=1, endCol=13)
 reg <- subset(reg, select=c("SCODE", "YEAR", "YRBEGIN", "YREND", "MAGFAIL", "MAGCOL", "MAGVIOL", "MAGAVE"))
 reg$pitf.reg.ongoing <- 1
@@ -21,7 +24,7 @@ reg$YRBEGIN <- reg$YREND <- NULL
 names(reg) <- c("sftgcode", "year", "pitf.reg.magfail", "pitf.reg.magcol", "pitf.reg.magviol", "pitf.reg.magave",
     "pitf.reg.ongoing", "pitf.reg.onset", "pitf.reg.end", "pitf.reg.dur")
 
-eth <- readWorksheetFromFile("c:/users/jay/documents/chenoweth project/indata/pitf ethnic wars 2012.xls",
+eth <- readWorksheetFromFile("indata/pitf ethnic wars 2013.xls",
   sheet=1, startCol=1, endCol=13)
 eth <- subset(eth, select=c("SCODE", "YEAR", "YRBEGIN", "YREND", "MAGFIGHT", "MAGFATAL", "MAGAREA", "AVEMAG"))
 eth$pitf.eth.ongoing <- 1
@@ -65,7 +68,7 @@ ethc <- merge(ethc, ethdur)
 ethc$sftgcode <- as.character(ethc$sftgcode)
 eth <- na.omit(ethc)
 
-rev <- readWorksheetFromFile("c:/users/jay/documents/chenoweth project/indata/pitf revolutionary wars 2012.xls",
+rev <- readWorksheetFromFile("indata/pitf revolutionary wars 2013.xls",
   sheet=1, startCol=1, endCol=13)
 rev <- subset(rev, select=c("SCODE", "YEAR", "YRBEGIN", "YREND", "MAGFIGHT", "MAGFATAL", "MAGAREA", "AVEMAG"))
 rev$pitf.rev.ongoing <- 1
@@ -110,7 +113,7 @@ revc <- merge(revc, revdur)
 revc$sftgcode <- as.character(revc$sftgcode)
 rev <- na.omit(revc)
 
-gen <- readWorksheetFromFile("c:/users/jay/documents/chenoweth project/indata/pitf genopoliticides 2012.xls",
+gen <- readWorksheetFromFile("indata/pitf genopoliticides 2013.xls",
   sheet=1, startCol = 1, endCol = 10)
 gen <- subset(gen, select=c("SCODE", "YEAR", "YRBEGIN", "YREND", "DEATHMAG"))
 gen$pitf.gen.ongoing <- 1
@@ -121,7 +124,7 @@ gen$YRBEGIN <- gen$YREND <- NULL
 names(gen) <- c("sftgcode", "year", "pitf.gen.deathmag", "pitf.gen.ongoing", "pitf.gen.onset",
   "pitf.gen.end", "pitf.gen.dur")
 
-source("c:/users/jay/documents/ushmm/statrisk2014/r/countryyear.rack.maker.R")
+source("r/countryyear.rack.maker.R")
 pitfps <- merge(subset(rack, select=c(country,sftgcode,year)), reg, all.x = TRUE)
 pitfps <- merge(pitfps, rev, all.x = TRUE)
 pitfps <- merge(pitfps, eth, all.x = TRUE)
@@ -165,13 +168,13 @@ for (i in 1:dim(pitf)[1]) pitf$pitf.mag.max2[i] <- max(pitf$pitf.reg.max[i], pit
 
 # (c) Sum those annual maxima across the previous 15 years with and w/o genocides
 pitf$sftpuhvl.15 <- NA
-for (i in 1:dim(pitf)[1]) pitf$sftpuhvl.15[i] <- ifelse(pitf$year[i] >= 1969 & pitf$year[i] < 2013,
+for (i in 1:dim(pitf)[1]) pitf$sftpuhvl.15[i] <- ifelse(pitf$year[i] >= 1969 & pitf$year[i] < 2014,
   sum(pitf$pitf.mag.max[i], pitf$pitf.mag.max[i-1], pitf$pitf.mag.max[i-2], pitf$pitf.mag.max[i-3], pitf$pitf.mag.max[i-4],
   pitf$pitf.mag.max[i-5], pitf$pitf.mag.max[i-6], pitf$pitf.mag.max[i-7], pitf$pitf.mag.max[i-8], pitf$pitf.mag.max[i-9],
   pitf$pitf.mag.max[i-10], pitf$pitf.mag.max[i-11], pitf$pitf.mag.max[i-12], pitf$pitf.mag.max[i-13], pitf$pitf.mag.max[i-14],
   na.rm=TRUE), NA)
 pitf$sftpuhvl2.15 <- NA
-for (i in 1:dim(pitf)[1]) pitf$sftpuhvl2.15[i] <- ifelse(pitf$year[i] >= 1969 & pitf$year[i] < 2013,
+for (i in 1:dim(pitf)[1]) pitf$sftpuhvl2.15[i] <- ifelse(pitf$year[i] >= 1969 & pitf$year[i] < 2014,
   sum(pitf$pitf.mag.max2[i], pitf$pitf.mag.max2[i-1], pitf$pitf.mag.max2[i-2], pitf$pitf.mag.max2[i-3], pitf$pitf.mag.max2[i-4],
   pitf$pitf.mag.max2[i-5], pitf$pitf.mag.max2[i-6], pitf$pitf.mag.max2[i-7], pitf$pitf.mag.max2[i-8], pitf$pitf.mag.max2[i-9],
   pitf$pitf.mag.max2[i-10], pitf$pitf.mag.max2[i-11], pitf$pitf.mag.max2[i-12], pitf$pitf.mag.max2[i-13], pitf$pitf.mag.max2[i-14],
@@ -179,23 +182,23 @@ for (i in 1:dim(pitf)[1]) pitf$sftpuhvl2.15[i] <- ifelse(pitf$year[i] >= 1969 & 
 
 # 10-year version of upheaval
 pitf$sftpuhvl.10 <- NA
-for (i in 1:dim(pitf)[1]) pitf$sftpuhvl.10[i] <- ifelse(pitf$year[i] >= 1964 & pitf$year[i] < 2013,
+for (i in 1:dim(pitf)[1]) pitf$sftpuhvl.10[i] <- ifelse(pitf$year[i] >= 1964 & pitf$year[i] < 2014,
   sum(pitf$pitf.mag.max[i], pitf$pitf.mag.max[i-1], pitf$pitf.mag.max[i-2], pitf$pitf.mag.max[i-3], pitf$pitf.mag.max[i-4],
   pitf$pitf.mag.max[i-5], pitf$pitf.mag.max[i-6], pitf$pitf.mag.max[i-7], pitf$pitf.mag.max[i-8], pitf$pitf.mag.max[i-9],
   na.rm=TRUE), NA)
 pitf$sftpuhvl2.10 <- NA
-for (i in 1:dim(pitf)[1]) pitf$sftpuhvl2.10[i] <- ifelse(pitf$year[i] >= 1964 & pitf$year[i] < 2013,
+for (i in 1:dim(pitf)[1]) pitf$sftpuhvl2.10[i] <- ifelse(pitf$year[i] >= 1964 & pitf$year[i] < 2014,
   sum(pitf$pitf.mag.max2[i], pitf$pitf.mag.max2[i-1], pitf$pitf.mag.max2[i-2], pitf$pitf.mag.max2[i-3], pitf$pitf.mag.max2[i-4],
   pitf$pitf.mag.max2[i-5], pitf$pitf.mag.max2[i-6], pitf$pitf.mag.max2[i-7], pitf$pitf.mag.max2[i-8], pitf$pitf.mag.max2[i-9],
   na.rm=TRUE), NA)
 
 # 5-year version of upheaval
 pitf$sftpuhvl.5 <- NA
-for (i in 1:dim(pitf)[1]) pitf$sftpuhvl.5[i] <- ifelse(pitf$year[i] >= 1959 & pitf$year[i] < 2013,
+for (i in 1:dim(pitf)[1]) pitf$sftpuhvl.5[i] <- ifelse(pitf$year[i] >= 1959 & pitf$year[i] < 2014,
   sum(pitf$pitf.mag.max[i], pitf$pitf.mag.max[i-1], pitf$pitf.mag.max[i-2], pitf$pitf.mag.max[i-3], pitf$pitf.mag.max[i-4],
   na.rm=TRUE), NA)
 pitf$sftpuhvl2.5 <- NA
-for (i in 1:dim(pitf)[1]) pitf$sftpuhvl2.5[i] <- ifelse(pitf$year[i] >= 1959 & pitf$year[i] < 2013,
+for (i in 1:dim(pitf)[1]) pitf$sftpuhvl2.5[i] <- ifelse(pitf$year[i] >= 1959 & pitf$year[i] < 2014,
   sum(pitf$pitf.mag.max2[i], pitf$pitf.mag.max2[i-1], pitf$pitf.mag.max2[i-2], pitf$pitf.mag.max2[i-3], pitf$pitf.mag.max2[i-4],
   na.rm=TRUE), NA)
 
@@ -209,4 +212,4 @@ pitf$pitf.rev.durln <- log1p(pitf$pitf.rev.dur)
 pitf$pitf.dur.minln <- log1p(pitf$pitf.dur.min)
 pitf$sftpuhvl2.10ln <- log1p(pitf$sftpuhvl2.10)
 
-write.csv(pitf, "c:/users/jay/documents/ushmm/statrisk2014/outdata/pitfproblemset.csv", row.names = FALSE)
+write.csv(pitf, "outdata/pitfproblemset.csv", row.names = FALSE)
